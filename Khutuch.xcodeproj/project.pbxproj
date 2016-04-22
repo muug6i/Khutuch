@@ -158,6 +158,7 @@
 		4B960B0A1C47AB93004C0453 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B960B0F1C47AB93004C0453 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B97868F1CCA0DF800E11598 /* libSEDefaults.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEDefaults.a; path = lib/libSEDefaults.a; sourceTree = "<group>"; };
+		4B9786911CCA0F1700E11598 /* Khutuch-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Khutuch-Prefix.pch"; sourceTree = "<group>"; };
 		4B9A8A841C4E4C4D00118E32 /* TosteiCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TosteiCollectionViewCell.h; sourceTree = "<group>"; };
 		4B9A8A851C4E4C4D00118E32 /* TosteiCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TosteiCollectionViewCell.m; sourceTree = "<group>"; };
 		4B9A8A871C4E4CD400118E32 /* rest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rest.png; sourceTree = "<group>"; };
@@ -324,7 +325,7 @@
 			isa = PBXGroup;
 			children = (
 				4BE064571C47BC8300D0D75B /* Default-568h@2x.png */,
-				4B960AFD1C47AB93004C0453 /* Minu */,
+				4B960AFD1C47AB93004C0453 /* Khutuch */,
 				4B960AFC1C47AB93004C0453 /* Products */,
 				7AA244D8C4E9D9971D5DA0BC /* Pods */,
 				E9F45229E29B261790ADA38D /* Frameworks */,
@@ -339,7 +340,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4B960AFD1C47AB93004C0453 /* Minu */ = {
+		4B960AFD1C47AB93004C0453 /* Khutuch */ = {
 			isa = PBXGroup;
 			children = (
 				4B960B011C47AB93004C0453 /* AppDelegate.h */,
@@ -348,17 +349,18 @@
 				4BDC18BF1C4A389400D0F7D1 /* OrderedViewController */,
 				4B4DF3F51C4A2435006B9474 /* CustomControls */,
 				4B4685C21C4DDB5100814A49 /* LoginViewController */,
-				4B960B0A1C47AB93004C0453 /* Assets.xcassets */,
-				4B960B0F1C47AB93004C0453 /* Info.plist */,
 				4BE063A81C47B83E00D0D75B /* icon */,
 				4B960AFE1C47AB93004C0453 /* Supporting Files */,
 			);
-			path = Minu;
+			path = Khutuch;
 			sourceTree = "<group>";
 		};
 		4B960AFE1C47AB93004C0453 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4B9786911CCA0F1700E11598 /* Khutuch-Prefix.pch */,
+				4B960B0A1C47AB93004C0453 /* Assets.xcassets */,
+				4B960B0F1C47AB93004C0453 /* Info.plist */,
 				4B960AFF1C47AB93004C0453 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -830,6 +832,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				GCC_PREFIX_HEADER = "Khotoch/Khutuch-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -855,6 +858,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				GCC_PREFIX_HEADER = "Khotoch/Khutuch-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",

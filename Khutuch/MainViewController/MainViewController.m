@@ -457,7 +457,7 @@
         [menuCollectionView setShowsHorizontalScrollIndicator:NO];
         [menuCollectionView setShowsVerticalScrollIndicator:NO];
         [menuCollectionView layoutIfNeeded];
-        
+
     }
     return menuCollectionView;
 }

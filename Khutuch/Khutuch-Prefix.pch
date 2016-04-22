@@ -1,0 +1,203 @@
+//
+//  Prefix header
+//
+//  The contents of this file are implicitly included at the beginning of every source file.
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#endif
+
+//CocoaPods
+#import <SEDefaults/SEDefaults.h>
+#import <AFNetworking/AFNetworking.h>
+#import <AFNetworking/UIImageView+AFNetworking.h>
+#import <MBProgressHUD.h>
+#import <CupertinoYankee/NSDate+CupertinoYankee.h>
+#import "CRToast.h"
+#import <SSKeychain.h>
+#import <UIColor+Expanded.h>
+#define MAS_SHORTHAND
+#import <Masonry.h>
+
+//Default
+#import "MyEnums.h"
+#import "MyUtils.h"
+#import "UserEmployee.h"
+#import "ConnectionManager.h"
+#import "Database.h"
+#import "CheckConnect.h"
+#import "StarMicroUtils.h"
+#import "Language.h"
+#import "MyTextField.h"
+#import "MyLabel.h"
+#import "MyTextView.h"
+#import "MyButton.h"
+#import "BaseViewController.h"
+#import "PrinterUtils.h"
+#import "WifiPrinter.h"
+#import "WifiPrinterDelegate.h"
+#import "NSString+Utils.h"
+#import "WhatStore.h"
+
+//====================================================================
+
+#define kMyStoreName                            @"kMyStoreName"
+#define kCurrencySymbol                         @"kCurrencySymbol"
+#define kTaxType                                @"kTaxType"
+#define kTaxAmount                              @"kTaxAmount"
+#define kGlobalHost                             @"kGlobalHost"
+#define kLocalHost                              @"kLocalHost"
+
+#define RESTAURANT_NAME                         [USERDEF valueForKey:kMyStoreName]
+#define CURRENCY_SYMBOL                         [USERDEF valueForKey:kCurrencySymbol] == nil ? @"₮" : [USERDEF valueForKey:kCurrencySymbol]
+#define HOST_GLOBAL                             [USERDEF valueForKey:kGlobalHost]
+#define HOST_LOCAL                              [USERDEF valueForKey:kLocalHost]
+
+//====================================================================
+
+#define HOST                                    [USERDEF boolForKey:kIsGlobalHost] ? [NSString stringWithFormat:@"%@/iStore_dup",HOST_GLOBAL] : [NSString stringWithFormat:@"%@/iStore_v3",HOST_LOCAL]
+
+//====================================================================
+
+#define kIamManager                             @"kIamManager"
+//#define kMyRestaurants                          @"kMyRestaurants"
+
+//====================================================================
+#define kCashierPrinterType                     @"kCashierPrinterType"
+#define kCashierPrinterCopyCount                @"kCashierPrinterCopyCount"
+#define kCashierPrinterHost                     @"kCashierPrinterHost"
+
+#define CASHIER_PRINTER_TYPE                    [USERDEF integerForKey:kCashierPrinterType]
+#define CASHIER_PRINTER_COPY_COUNT              [USERDEF integerForKey:kCashierPrinterCopyCount]
+#define HOST_PRINTER_CASHIER                    [USERDEF valueForKey:kCashierPrinterHost]
+
+#define kIPCashierPrinter                   @"kIPCashierPrinter"
+#define IP_CASHIER_PRINTER                  [USERDEF valueForKey:kIPCashierPrinter] == nil  ? IP_CASHIER_PRINTER_DEFAULT : [USERDEF valueForKey:kIPCashierPrinter]
+
+//====================================================================
+
+#define kLocationCode                             @"kLocationCode"
+#define kProductCode                              @"kProductCode"
+
+//====================================================================
+#undef MY_BOUNDS
+#define MY_BOUNDS                           (!IS_IPAD ? [SEUtils getPortraitBounds] : [SEUtils getLandscapeBounds])
+
+#define CONNECTION_TIMEOUT                  220.0f
+#define REPORT_TEMP_FILE_NAME               @"report_temp.xlsx"
+
+#define kLastBackgroundDate                 @"kLastBackgroundDate"
+#define kLoggedIn                           @"kLoggedIn"
+#define kIsGlobalHost                       @"kIsGlobalHost"
+#define kLanguageENG                        @"kLanguageENG"
+#define kFloorBgImageName                   @"kFloorBgImageName"
+#define kLoginRememberMe                    @"kRememberMe"
+#define kIntroAgain                         @"kIntroAgain"
+#define kLoginUsername                      @"kUsername"
+#define kLoginPasswordKeychain              @"kLoginPasswordKeychain"
+#define kRunningApp                         @"kRunningApp"
+#define kAppCrashed                         @"kAppCrashed"
+#define kRefreshTables                      @"kRefreshTables"
+#define kDeviceToken                        @"kDeviceToken"
+
+#define kCashierPeripheral                      @"kCashierPeripheral"
+
+#define CASHIER_PERIPHERAL_IDENTIFIER                      [USERDEF stringForKey:kCashierPeripheral]
+
+//====================================================================
+
+#define APP_URL_SCHEME                          @"swipeAPICallReturnURL"
+#define kSwipeErelBankSuccesObserver            @"kSwipeErelBankSuccesObserver"
+#define kSwipeErelBankFailObserver              @"kSwipeErelBankFailObserver"
+
+
+//Constants
+#undef  NO_CONNECTION_ALERT
+#define NO_CONNECTION_ALERT             NSLocalizedString(@"Сервэртэй холбогдоход алдаа гарлаа. Холболтоо шалгана уу!", nil)
+#define SESSION_EXPIRED_STRING          @"This connection is untrusted"
+
+#define CONNECTION_MANAGER              [ConnectionManager getConnectionManager]
+#define DATABASE_MANAGER                [Database getDatabase]
+#define PARSER                          [Parser getParser]
+#define LOGIN_USER                      [UserEmployee getLoginUser]
+#define PRINTER_UTILS                   [PrinterUtils sharedPrinterUtils]
+
+#define kSelectedOrgID                  @"kSelectedOrgID"
+#define kSelectedEmployeeID             @"kSelectedEmployeeID"
+#define kSelectedSettingsID             @"kSelectedSettingsID"
+
+
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+#undef  NSLocalizedString
+#define NSLocalizedString(key, _comment)    [[Language sharedInstance] localizedString:key]
+
+#undef IS_RETINA
+#define IS_RETINA                       ([[UIScreen mainScreen] respondsToSelector:@selector(displayLinkWithTarget:selector:)] && ([UIScreen mainScreen].scale == 2.0))
+
+
+#define PURPLE_COLOR                    [UIColor colorWithRed:128.0f/255.0f green:71.0f/255.0f blue:150.0f/255.0f alpha:1.0f]
+#define GRAY_COLOR_1                    [UIColor colorWithRed:129.0f/255.0f green:129.0f/255.0f blue:129.0f/255.0f alpha:1.0f]
+#define GRAY_COLOR_2                    [UIColor colorWithRed:105.0f/255.0f green:105.0f/255.0f blue:105.0f/255.0f alpha:1.0f]
+#define LIGHT_GRAY_COLOR                [UIColor colorWithRed:184.0f/255.0f green:184.0f/255.0f blue:184.0f/255.0f alpha:1.0f]
+//#define LIGHT_GRAY_COLOR                [UIColor colorWithRed:191.0f/255.0f green:191.0f/255.0f blue:191.0f/255.0f alpha:1.0f]
+
+#define LIGHT_YELLOW_COLOR              [UIColor colorWithRed:242.0f/255.0f green:244.0f/255.0f blue:216.0f/255.0f alpha:1.0f]
+
+#define BLACK_COLOR                     [UIColor colorWithRed:68.0f/255.0f green:68.0f/255.0f blue:69.0f/255.0f alpha:1.0f]
+#define GRAY_COLOR                      [UIColor colorWithRed:178.0f/255.0f green:178.0f/255.0f blue:178.0f/255.0f alpha:1.0f]
+#define GREEN_COLOR                     [UIColor colorWithRed:122.0f/255.0f green:200.0f/255.0f blue:44.0f/255.0f alpha:1.0f]
+
+#define CHART_COLOR_1                   [UIColor colorWithRed:22.0f/255.0f green:160.0f/255.0f blue:134.0f/255.0f alpha:1.0f]
+#define CHART_COLOR_2                   [UIColor colorWithRed:81.0f/255.0f green:189.0f/255.0f blue:127.0f/255.0f alpha:1.0f]
+#define CHART_COLOR_3                   [UIColor colorWithRed:41.0f/255.0f green:127.0f/255.0f blue:184.0f/255.0f alpha:1.0f]
+#define CHART_COLOR_4                   [UIColor colorWithRed:0.0f/255.0f green:155.0f/255.0f blue:222.0f/255.0f alpha:1.0f]
+#define CHART_COLOR_5                   [UIColor colorWithRed:164.0f/255.0f green:105.0f/255.0f blue:189.0f/255.0f alpha:1.0f]
+#define CHART_COLOR_6                   [UIColor colorWithRed:241.0f/255.0f green:196.0f/255.0f blue:15.0f/255.0f alpha:1.0f]
+#define CHART_COLOR_7                   [UIColor colorWithRed:230.0f/255.0f green:127.0f/255.0f blue:34.0f/255.0f alpha:1.0f]
+#define CHART_COLOR_8                   [UIColor colorWithRed:235.0f/255.0f green:111.0f/255.0f blue:99.0f/255.0f alpha:1.0f]
+#define CHART_COLOR_9                   [UIColor colorWithRed:243.0f/255.0f green:156.0f/255.0f blue:17.0f/255.0f alpha:1.0f]
+#define CHART_COLOR_10                  [UIColor colorWithRed:215.0f/255.0f green:73.0f/255.0f blue:89.0f/255.0f alpha:1.0f]
+
+#define POPUP_SIZE                      CGSizeMake(421, 458)
+#define POPUP_SIZE_IPHONE               CGSizeMake(320, 400)
+#define POPUP_BIG_SIZE                  CGSizeMake(580, 520)
+#define POPOVER_SIZE                    CGSizeMake(320, 300)
+#define iPOPOVER_SIZE                   CGSizeMake(SCREEN_WIDTH-40, 340)
+
+#undef NORMALFONT
+#undef BOLDFONT
+#define NORMALFONT                      @"MogulAvanti"
+#define BOLDFONT                        @"MogulAvanti-Bold"
+#define FONT_EXTRA_LARGE                [UIFont fontWithName:NORMALFONT size:36.0f]
+#define FONT_LARGE                      [UIFont fontWithName:NORMALFONT size:24.0f]
+#define FONT_MEDIUM                     [UIFont fontWithName:NORMALFONT size:21.0f]
+#define FONT_MEDIUM_BOLD                [UIFont fontWithName:BOLDFONT size:21.0f]
+#define FONT_NORMAL                     [UIFont fontWithName:NORMALFONT size:17.0f]
+#define FONT_NORMAL_BOLD                [UIFont fontWithName:BOLDFONT size:17.0f]
+#define FONT_NORMAL_SMALL               [UIFont fontWithName:NORMALFONT size:14.0f]
+#define FONT_NORMAL_SMALL_BOLD          [UIFont fontWithName:BOLDFONT size:14.0f]
+#define FONT_SMALL                      [UIFont fontWithName:NORMALFONT size:12.0f]
+
+//====================================================================
+
+//VANTAGEPOS
+#define MAIN_COLOR                      UIColorFromRGB(0x4d8fb2)
+#define MAIN_BG_COLOR                   UIColorFromRGB(0xeaeaea)
+
+
+//------------------- Offline bill -------------------//
+#define kOFFLINE_ORDER_DICTIONARY       @"koffline_order_dictionary"
+
+
+
+
+
