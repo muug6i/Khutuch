@@ -27,6 +27,7 @@
 		4B960B001C47AB93004C0453 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B960AFF1C47AB93004C0453 /* main.m */; };
 		4B960B031C47AB93004C0453 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B960B021C47AB93004C0453 /* AppDelegate.m */; };
 		4B960B0B1C47AB93004C0453 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B960B0A1C47AB93004C0453 /* Assets.xcassets */; };
+		4B9786901CCA0DF800E11598 /* libSEDefaults.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B97868F1CCA0DF800E11598 /* libSEDefaults.a */; };
 		4B9A8A861C4E4C4D00118E32 /* TosteiCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9A8A851C4E4C4D00118E32 /* TosteiCollectionViewCell.m */; };
 		4B9A8A881C4E4CD400118E32 /* rest.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B9A8A871C4E4CD400118E32 /* rest.png */; };
 		4B9A8A8B1C4E4EE800118E32 /* Comment2TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9A8A8A1C4E4EE800118E32 /* Comment2TableViewCell.m */; };
@@ -156,6 +157,7 @@
 		4B960B021C47AB93004C0453 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4B960B0A1C47AB93004C0453 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B960B0F1C47AB93004C0453 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4B97868F1CCA0DF800E11598 /* libSEDefaults.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEDefaults.a; path = lib/libSEDefaults.a; sourceTree = "<group>"; };
 		4B9A8A841C4E4C4D00118E32 /* TosteiCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TosteiCollectionViewCell.h; sourceTree = "<group>"; };
 		4B9A8A851C4E4C4D00118E32 /* TosteiCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TosteiCollectionViewCell.m; sourceTree = "<group>"; };
 		4B9A8A871C4E4CD400118E32 /* rest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rest.png; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B9786901CCA0DF800E11598 /* libSEDefaults.a in Frameworks */,
 				11C0157B594C3C22A0DB598C /* libPods-Minu.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -498,6 +501,7 @@
 		E9F45229E29B261790ADA38D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4B97868F1CCA0DF800E11598 /* libSEDefaults.a */,
 				6EB659410577F02A8473B123 /* libPods-Minu.a */,
 			);
 			name = Frameworks;
@@ -826,8 +830,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/AMRatingControl\"",
+					"\"${PODS_ROOT}/Headers/Public/FXBlurView\"",
+					$SOURCE_ROOT/include,
+				);
 				INFOPLIST_FILE = Minu/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = mn.kaizen.Minu;
 				PRODUCT_NAME = Khutuch;
 			};
@@ -839,8 +855,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/AMRatingControl\"",
+					"\"${PODS_ROOT}/Headers/Public/FXBlurView\"",
+					$SOURCE_ROOT/include,
+				);
 				INFOPLIST_FILE = Minu/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = mn.kaizen.Minu;
 				PRODUCT_NAME = Khutuch;
 			};
