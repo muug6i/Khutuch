@@ -20,32 +20,9 @@
 #import <AFNetworking/AFNetworking.h>
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import <MBProgressHUD.h>
-#import <CupertinoYankee/NSDate+CupertinoYankee.h>
-#import "CRToast.h"
-#import <SSKeychain.h>
-#import <UIColor+Expanded.h>
 #define MAS_SHORTHAND
-#import <Masonry.h>
 
 //Default
-#import "MyEnums.h"
-#import "MyUtils.h"
-#import "UserEmployee.h"
-#import "ConnectionManager.h"
-#import "Database.h"
-#import "CheckConnect.h"
-#import "StarMicroUtils.h"
-#import "Language.h"
-#import "MyTextField.h"
-#import "MyLabel.h"
-#import "MyTextView.h"
-#import "MyButton.h"
-#import "BaseViewController.h"
-#import "PrinterUtils.h"
-#import "WifiPrinter.h"
-#import "WifiPrinterDelegate.h"
-#import "NSString+Utils.h"
-#import "WhatStore.h"
 
 //====================================================================
 

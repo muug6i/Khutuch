@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		11C0157B594C3C22A0DB598C /* libPods-Minu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EB659410577F02A8473B123 /* libPods-Minu.a */; };
 		4B458AF91C4CB35400805045 /* ZoxildoxCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B458AF81C4CB35400805045 /* ZoxildoxCollectionViewCell.m */; };
 		4B458AFC1C4CB36900805045 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B458AFB1C4CB36900805045 /* CommentTableViewCell.m */; };
 		4B458AFE1C4CB72200805045 /* food.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B458AFD1C4CB72200805045 /* food.png */; };
@@ -122,10 +121,11 @@
 		4BE064581C47BC8300D0D75B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BE064571C47BC8300D0D75B /* Default-568h@2x.png */; };
 		4BEE5B991C4C9AB500F95683 /* OrderedDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEE5B981C4C9AB500F95683 /* OrderedDetailTableViewCell.m */; };
 		4BEE5B9C1C4CA95900F95683 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEE5B9B1C4CA95900F95683 /* Item.m */; };
+		996899AD067EC344CDD9179C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE71B3A9B5A9518F6A5BF91B /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2F52B53158F3CB2B7C46F137 /* Pods-Minu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minu.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Minu/Pods-Minu.debug.xcconfig"; sourceTree = "<group>"; };
+		0DAECBC922A6F6FFACF81D84 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		4B458AF71C4CB35400805045 /* ZoxildoxCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoxildoxCollectionViewCell.h; sourceTree = "<group>"; };
 		4B458AF81C4CB35400805045 /* ZoxildoxCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoxildoxCollectionViewCell.m; sourceTree = "<group>"; };
 		4B458AFA1C4CB36900805045 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentTableViewCell.h; sourceTree = "<group>"; };
@@ -260,8 +260,8 @@
 		4BEE5B981C4C9AB500F95683 /* OrderedDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderedDetailTableViewCell.m; sourceTree = "<group>"; };
 		4BEE5B9A1C4CA95900F95683 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
 		4BEE5B9B1C4CA95900F95683 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
-		6EB659410577F02A8473B123 /* libPods-Minu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Minu.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E5561BF858103F8D11F54A9D /* Pods-Minu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minu.release.xcconfig"; path = "Pods/Target Support Files/Pods-Minu/Pods-Minu.release.xcconfig"; sourceTree = "<group>"; };
+		BE71B3A9B5A9518F6A5BF91B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E532A5A09CDC67562323F4CF /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,7 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B9786901CCA0DF800E11598 /* libSEDefaults.a in Frameworks */,
-				11C0157B594C3C22A0DB598C /* libPods-Minu.a in Frameworks */,
+				996899AD067EC344CDD9179C /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +345,7 @@
 			children = (
 				4B960B011C47AB93004C0453 /* AppDelegate.h */,
 				4B960B021C47AB93004C0453 /* AppDelegate.m */,
+				4BCE22291CCA1C6B00271421 /* Abstract */,
 				4BE064531C47B8AF00D0D75B /* MainViewController */,
 				4BDC18BF1C4A389400D0F7D1 /* OrderedViewController */,
 				4B4DF3F51C4A2435006B9474 /* CustomControls */,
@@ -364,6 +365,13 @@
 				4B960AFF1C47AB93004C0453 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4BCE22291CCA1C6B00271421 /* Abstract */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Abstract;
 			sourceTree = "<group>";
 		};
 		4BDC18BF1C4A389400D0F7D1 /* OrderedViewController */ = {
@@ -494,8 +502,8 @@
 		7AA244D8C4E9D9971D5DA0BC /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				2F52B53158F3CB2B7C46F137 /* Pods-Minu.debug.xcconfig */,
-				E5561BF858103F8D11F54A9D /* Pods-Minu.release.xcconfig */,
+				E532A5A09CDC67562323F4CF /* Pods.debug.xcconfig */,
+				0DAECBC922A6F6FFACF81D84 /* Pods.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -504,7 +512,7 @@
 			isa = PBXGroup;
 			children = (
 				4B97868F1CCA0DF800E11598 /* libSEDefaults.a */,
-				6EB659410577F02A8473B123 /* libPods-Minu.a */,
+				BE71B3A9B5A9518F6A5BF91B /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -682,7 +690,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Minu/Pods-Minu-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		34858909ACC382764E2128F4 /* Check Pods Manifest.lock */ = {
@@ -712,7 +720,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Minu/Pods-Minu-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -828,52 +836,52 @@
 		};
 		4B960B131C47AB93004C0453 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2F52B53158F3CB2B7C46F137 /* Pods-Minu.debug.xcconfig */;
+			baseConfigurationReference = E532A5A09CDC67562323F4CF /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
-				GCC_PREFIX_HEADER = "Khotoch/Khutuch-Prefix.pch";
+				GCC_PREFIX_HEADER = "Khutuch/Khutuch-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
 					"\"${PODS_ROOT}/Headers/Public/AMRatingControl\"",
 					"\"${PODS_ROOT}/Headers/Public/FXBlurView\"",
-					$SOURCE_ROOT/include,
+					"\"$SOURCE_ROOT/include\"",
 				);
-				INFOPLIST_FILE = Minu/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Khutuch/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = mn.kaizen.Minu;
+				PRODUCT_BUNDLE_IDENTIFIER = mn.kaizen.khutuch;
 				PRODUCT_NAME = Khutuch;
 			};
 			name = Debug;
 		};
 		4B960B141C47AB93004C0453 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E5561BF858103F8D11F54A9D /* Pods-Minu.release.xcconfig */;
+			baseConfigurationReference = 0DAECBC922A6F6FFACF81D84 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
-				GCC_PREFIX_HEADER = "Khotoch/Khutuch-Prefix.pch";
+				GCC_PREFIX_HEADER = "Khutuch/Khutuch-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
 					"\"${PODS_ROOT}/Headers/Public/AMRatingControl\"",
 					"\"${PODS_ROOT}/Headers/Public/FXBlurView\"",
-					$SOURCE_ROOT/include,
+					"\"$SOURCE_ROOT/include\"",
 				);
-				INFOPLIST_FILE = Minu/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Khutuch/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = mn.kaizen.Minu;
+				PRODUCT_BUNDLE_IDENTIFIER = mn.kaizen.khutuch;
 				PRODUCT_NAME = Khutuch;
 			};
 			name = Release;

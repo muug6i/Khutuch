@@ -1,7 +1,7 @@
 
 //
 //  OrderedViewController.m
-//  Minu
+//  Khutuch
 //
 //  Created by Kaizen-Mongolia on 1/16/16.
 //  Copyright © 2016 Kaizen-Mongolia. All rights reserved.
