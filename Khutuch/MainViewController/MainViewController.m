@@ -5,59 +5,46 @@
 //  Created by Kaizen-Mongolia on 1/14/16.
 //  Copyright © 2016 Kaizen-Mongolia. All rights reserved.
 //
-#define TRANSFORM_CELL_VALUE CGAffineTransformMakeScale(0.8, 0.8)
-#define ANIMATION_SPEED 0.2
 
 
 #import "MainViewController.h"
 #import "BTagCollectionViewCell.h"
-#import "MenuCollectionViewCell.h"
+#import "MainMenuCollectionCell.h"
 #import "MainTableViewCell.h"
 #import "MainDetailTableViewCell.h"
 
-@interface MainViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITableViewDataSource, UITableViewDelegate>
-{
-    BOOL        isMoved;
-    BOOL        isSearch;
-    BOOL        isSubCell;
-    NSMutableArray  *nameArray;
-    NSMutableArray  *iconArray;
-    NSMutableArray  *othersArray;
-    NSMutableArray  *boolArray;
-    NSIndexPath     *lastIndex;
-    NSIndexPath     *singleIndex;
+@interface MainViewController ()<UIScrollViewDelegate,UIGestureRecognizerDelegate>{
+    CGSize menuSize;
 }
 @end
 
 @implementation MainViewController
+@synthesize myScrollView;
+@synthesize headView;
+@synthesize advertiseMentView;
 
-@synthesize blurView;
-@synthesize bgView;
-@synthesize menuCollectionView;
-
-@synthesize mainTableView;
-@synthesize othersTableView;
-
-@synthesize bTagCollectionView;
-
-@synthesize searchFieldl;
+@synthesize newsButton;
+@synthesize trafficButton;
 @synthesize searchButton;
-@synthesize loginButton;
 
+@synthesize weatherButton;
+@synthesize referenceButton;
 
+@synthesize easternAstrologyButton;
+@synthesize westernAstrologyButton;
+@synthesize classicButton;
+
+@synthesize tvButton;
+@synthesize getInformationButton;
+@synthesize jokeButton;
+
+@synthesize radioButton;
+@synthesize busRouteButton;
+@synthesize sonjooButton;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
-    isMoved = NO;
-    nameArray = [[NSMutableArray alloc] initWithObjects:@"", @"Үзвэр үйлчилгээ", @"Хоолны газар", @"Банк, санхүү", @"Энтертэймант", @"B-tag", @"Бусад", @"", nil];
-    
-    boolArray = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO],[NSNumber numberWithBool:NO], nil];
-    
-    iconArray = [[NSMutableArray alloc] initWithObjects:@"", @"uzver", @"hool", @"bank", @"entertainment", @"btab", @"busad", @"", nil];
-    othersArray = [[NSMutableArray alloc] initWithObjects:@"СПОРТ ЧӨЛӨӨТ ЦАГ", @"БОЛОВСРОЛ", @"зочид буудал", @"онцлох газар", @"эрүүл мэнд", @"хүүхдэд зориулсан", @"гоо сайхан", @"дэлгүүр", nil];
-    [self drawObjects];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,470 +52,420 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) drawObjects {
-    
-    [self.view layoutIfNeeded];
-    [self.view addSubview:self.bgView];
-    [self.view addSubview:self.blurView];
-    [self.view addSubview:self.menuCollectionView];
-    
-    [self.view addSubview:self.searchFieldl];
-    self.searchFieldl.hidden = YES;
-    [self.view addSubview:self.searchButton];
-    [self.view addSubview:self.loginButton];
-    self.loginButton.hidden = YES;
-    
-    [self.view addSubview:self.mainTableView];
-    [self.view addSubview:self.bTagCollectionView];
-    [self.view addSubview:self.othersTableView];
-    
-    self.bTagCollectionView.hidden = YES;
-    self.othersTableView.hidden = YES;
-    
-    UISwipeGestureRecognizer * swipeleft=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeleft:)];
-    swipeleft.direction=UISwipeGestureRecognizerDirectionLeft;
-    [self.view addGestureRecognizer:swipeleft];
-    
-    UISwipeGestureRecognizer * swiperight=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swiperight:)];
-    swiperight.direction=UISwipeGestureRecognizerDirectionRight;
-    [self.view addGestureRecognizer:swiperight];
+-(void)initValues{
+    menuSize = CGSizeMake((SCREEN_WIDTH-20)/3, 85);
 }
 
+-(void)configureView{
+    [super configureView];
+    
+    [self initValues];
+    
+    [self.view addSubview:self.myScrollView];
+    [self.myScrollView addSubview:self.headView];
+    [self.myScrollView addSubview:self.advertiseMentView];
+    [self.myScrollView addSubview:self.newsButton];
+    [self.myScrollView addSubview:self.trafficButton];
+    [self.myScrollView addSubview:self.searchButton];
+    [self.myScrollView addSubview:self.weatherButton];
+    
+    [self.myScrollView addSubview:self.referenceButton];
+    [self.myScrollView addSubview:self.easternAstrologyButton];
+    [self.myScrollView addSubview:self.westernAstrologyButton];
+    [self.myScrollView addSubview:self.classicButton];
+    [self.myScrollView addSubview:self.tvButton];
+    [self.myScrollView addSubview:self.getInformationButton];
+    [self.myScrollView addSubview:self.jokeButton];
+    [self.myScrollView addSubview:self.radioButton];
+    [self.myScrollView addSubview:self.busRouteButton];
+    [self.myScrollView addSubview:self.sonjooButton];
+    
+    myScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, 145 + menuSize.height * 5 + 40);
+}
 
 #pragma mark -
-#pragma mark - Actions
+#pragma mark UIActions
 
--(void)swipeleft:(UISwipeGestureRecognizer*)gestureRecognizer
-{
-    NSLog(@"LEFT");
-    
-    CGPoint offset = self.menuCollectionView.contentOffset;
-    offset.x = offset.x + self.view.frame.size.width/3;
-    [self.menuCollectionView setContentOffset:offset animated:YES];
+-(void)newsButtonClicked{
     
 }
 
--(void)swiperight:(UISwipeGestureRecognizer*)gestureRecognizer
-{
-    NSLog(@"RIGHT");
-    CGPoint offset = self.menuCollectionView.contentOffset;
-    if (offset.x >= 0) {
-        offset.x = offset.x - self.view.frame.size.width/3;
-        [self.menuCollectionView setContentOffset:offset animated:YES];
-    }
+-(void)trafficButtonClicked{
     
 }
 
-- (void) searchButtonClicked {
+-(void)searchButtonClicked{
     
-    self.searchFieldl.hidden = !self.searchFieldl.hidden;
-    self.searchButton.hidden = !self.searchButton.hidden;
-    self.loginButton.hidden = !self.loginButton.hidden;
-    isSearch = !isSearch;
-    NSLog(@"SEARCH BUTTON");
-    [self.menuCollectionView reloadData];
 }
 
-- (void) closeButtonClicked {
-    NSLog(@"CLOSE BUTTON");
-    isSubCell = !isSubCell;
-    
-    for (int a = 0; a < 10; a++) {
-        [boolArray replaceObjectAtIndex:a withObject:[NSNumber numberWithBool:NO]];
-    }
-    
-    
-    
-    [self.loginButton removeTarget:nil
-                           action:nil
-                 forControlEvents:UIControlEventAllEvents];
-    [self.loginButton addTarget:self action:@selector(searchButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    self.loginButton.hidden = !self.loginButton.hidden;
-    
-    [self.mainTableView reloadData];
+-(void)weatherButtonClicked{
     
 }
-#pragma mark -
-#pragma mark - Scroll View Delegate
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
-{
-    if (scrollView == self.menuCollectionView) {
-        isMoved = YES;
-        float pageWidth = self.view.frame.size.width/3; // width + space
-        
-        float currentOffset = scrollView.contentOffset.x;
-        float targetOffset = targetContentOffset->x;
-        float newTargetOffset = 0;
-        
-        if (targetOffset > currentOffset)
-            newTargetOffset = ceilf(currentOffset / pageWidth) * pageWidth;
-        else
-            newTargetOffset = floorf(currentOffset / pageWidth) * pageWidth;
-        
-        if (newTargetOffset < 0)
-            newTargetOffset = 0;
-        else if (newTargetOffset > scrollView.contentSize.width)
-            newTargetOffset = scrollView.contentSize.width;
-        
-        targetContentOffset->x = currentOffset;
-        [scrollView setContentOffset:CGPointMake(newTargetOffset, 0) animated:YES];
-        
-        int index = newTargetOffset / pageWidth;
-        NSLog(@"INDEX %i", index);
-        
-        if (index == 4) {
-            self.bTagCollectionView.hidden = NO;
-            self.mainTableView.hidden = YES;
-            self.othersTableView.hidden = YES;
-        } else if (index == 5) {
-            self.bTagCollectionView.hidden = YES;
-            self.mainTableView.hidden = YES;
-            self.othersTableView.hidden = NO;
-        } else {
-            self.bTagCollectionView.hidden = YES;
-            self.mainTableView.hidden = NO;
-            self.othersTableView.hidden = YES;
-        }
-        MenuCollectionViewCell *cell = [self.menuCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index  inSection:0]];
-        
-        [UIView animateWithDuration:ANIMATION_SPEED animations:^{
-            cell.iconImage.hidden = YES;
-            cell.blurView.hidden = NO;
-            cell.nameLabel.font = [UIFont fontWithName:@"Courier" size:10];
-        }];
-        
-        cell = [self.menuCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index+2  inSection:0]];
-        [UIView animateWithDuration:ANIMATION_SPEED animations:^{
-            cell.iconImage.hidden = YES;
-            cell.blurView.hidden = NO;
-            cell.nameLabel.font = [UIFont fontWithName:@"Courier" size:10];
-        }];
-        cell = [self.menuCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index+1  inSection:0]];
-        [UIView animateWithDuration:ANIMATION_SPEED animations:^{
-            cell.iconImage.hidden = NO;
-            cell.blurView.hidden = YES;
-            cell.nameLabel.font = [UIFont fontWithName:@"Courier" size:14];
-        }];
-        
-    }
+
+-(void)referenceButtonClicked{
+    
+}
+
+-(void)easternAstrologyButtonClicked{
+    
+}
+
+-(void)westernAstrologyButtonClicked{
+    
 }
 
 
-
-
-#pragma mark -
-#pragma mark UICollectionViewDatasource
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return nameArray.count;
-}
-
-// The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (collectionView == self.menuCollectionView) {
-        MenuCollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"MenuCollectionViewCell"
-                                                                               forIndexPath:indexPath];
-        
-        cell.nameLabel.text = [[nameArray objectAtIndex:indexPath.row] uppercaseString];
-        cell.iconImage.image = [UIImage imageNamed:[iconArray objectAtIndex:indexPath.row]];
-        if (isSearch) {
-            cell.iconImage.hidden =YES;
-            cell.nameLabel.font = [UIFont fontWithName:@"Courier" size:14];
-            cell.blurView.hidden = YES;
-            lastIndex = indexPath;
-        } else {
-            if (lastIndex) {
-                if (indexPath.row == lastIndex.row - 1) {
-                    cell.iconImage.hidden = NO;
-                }
-            }
-            if (!isMoved) {
-                if (indexPath.row == 1) {
-                    cell.iconImage.hidden = NO;
-                    cell.nameLabel.font = [UIFont fontWithName:@"Courier" size:14];
-                    cell.blurView.hidden = YES;
-                }
-            }
-        }
-        return cell;
-    } else {
-        BTagCollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"BTagCollectionViewCell"
-                                                                               forIndexPath:indexPath];
-        return cell;
-    }
-}
-
-
-
-
-#pragma mark - TableView  DataSource
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (tableView == self.mainTableView) {
-        if (isSubCell) {
-            return 1;
-        } else {
-            return boolArray.count;
-        }
-        
-    } else {
-        return 1;
-    }
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (tableView == self.mainTableView) {
-        BOOL selected = [[boolArray objectAtIndex:singleIndex.section] boolValue];
-        if (selected == YES) {
-            return 2;
-        } else {
-            return 1;
-        }
-    } else {
-        return othersArray.count;
-    }
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == self.mainTableView) {
-        if (indexPath.row == 0) {
-            return [self getMainCell:indexPath tableView:tableView];
-        } else {
-            return [self getSubDetailCell:indexPath tableView:tableView];
-        }
-    } else {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
-        
-        if(cell == nil)
-        {
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
-        }
-        
-        cell.textLabel.text= [[othersArray objectAtIndex:indexPath.row] uppercaseString];;
-        cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        cell.textLabel.textColor = UIColor.whiteColor;
-        cell.backgroundColor = UIColor.clearColor;
-        
-        if (indexPath.row != othersArray.count-1) {
-            UIView *cornerView = [[UIView alloc] initWithFrame:CGRectMake(40, 44, self.view.frame.size.width-80, 1)];
-            cornerView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.3];
-            [cell addSubview:cornerView];
-        }
-        return cell;
-    }
-}
-
-- (MainTableViewCell *)getMainCell:(NSIndexPath *)indexPath tableView:(UITableView *)tableView {
-    static NSString *CellIdentifier = @"MainTableViewCell";
+-(void)classicButtonClicked{
     
-    MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[MainTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-    
-    cell.nameLabel.text = @"ТЭРЭЛЖ";
-    cell.typeLabel.text = @"зочид буудал";
-    
-    [cell layoutSubviews];
-    
-    return cell;
 }
 
-- (MainDetailTableViewCell *)getSubDetailCell:(NSIndexPath *)indexPath tableView:(UITableView *)tableView {
-    static NSString *CellIdentifiers = @"MainDetailTableViewCell";
+-(void)tvButtonClicked{
     
-    MainDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifiers];
-    if (cell == nil) {
-        cell = [[MainDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifiers];
-        cell.backgroundColor = UIColor.whiteColor;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-    cell.zoxitsoxLabel.text =@"Төстэй газрууд";
-    [cell.ortsButton setTitle:@"Байршил харах" forState:UIControlStateNormal];
-    cell.priceLabel.hidden = YES;
-    return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == self.mainTableView) {
-        if (indexPath.row == 0) {
-            return 175;
-        } else
-            return 640;
-    } else {
-        
-        return 45;
-    }
+-(void)getInformationButtonClicked{
+    
+}
+
+-(void)jokeButtonClicked{
+    
+}
+
+
+-(void)busRouteButtonClicked{
+    
+}
+
+-(void)sonjooButtonClicked{
     
 }
 
 
 #pragma mark -
-#pragma mark - UITableViewDelegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    if (tableView  == self.mainTableView) {
-        BOOL list = [[boolArray objectAtIndex:indexPath.section] boolValue];
-        singleIndex = indexPath;
-        
-        if (indexPath.row == 0) {
-            NSLog(@"MAin Clicked");
-            
-            if (!isSubCell) {
-                NSLog(@"MAin  clicked %i", singleIndex.section);
-                list = !list;
-                [self.mainTableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
-                
-                for (int a = 0; a < 10; a++) {
-                    if (a != indexPath.section) {
-                        [boolArray replaceObjectAtIndex:a withObject:[NSNumber numberWithBool:NO]];
-                    } else{
-                        [boolArray replaceObjectAtIndex:a withObject:[NSNumber numberWithBool:YES]];
-                    }
-                }
-                
-                
-                [self.loginButton removeTarget:nil
-                                        action:NULL
-                              forControlEvents:UIControlEventAllEvents];
-                [self.loginButton addTarget:self action:@selector(closeButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-                isSubCell = !isSubCell;
-                self.loginButton.hidden = !self.loginButton.hidden;
-                
-                [self.mainTableView reloadData];
-            } else {
-            }
-            
-        } else {
-            NSLog(@"Sub Clicked");
-        }
+#pragma mark Getters
+- (UIScrollView *)myScrollView {
+    if (myScrollView == nil) {
+        myScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 20, SCREEN_WIDTH, SCREEN_HEIGHT - 70)];
+        myScrollView.backgroundColor = CLEAR_COLOR;
+        myScrollView.delegate = self;
+        myScrollView.showsVerticalScrollIndicator = NO;
+        myScrollView.showsHorizontalScrollIndicator = NO;
+        myScrollView.decelerationRate = 0.1f;
+        myScrollView.pagingEnabled = NO;
+        myScrollView.alwaysBounceVertical = YES;
     }
-    
+    return myScrollView;
 }
 
-
-
-#pragma mark -
-#pragma mark getters
-
--(UICollectionView *) bTagCollectionView {
-    if (!bTagCollectionView) {
-        
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-        layout.sectionInset = UIEdgeInsetsMake(5, 2, 2, 2);
-        layout.itemSize = CGSizeMake(self.view.frame.size.width/2-10, 100);
-        layout.minimumInteritemSpacing = 2;
-        layout.minimumLineSpacing = 5;
-        
-        
-        bTagCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(5, 82, self.view.frame.size.width - 10, self.view.frame.size.height-82-50) collectionViewLayout:layout];
-        bTagCollectionView.backgroundColor = [UIColor clearColor];
-        bTagCollectionView.alwaysBounceVertical = YES;
-        [bTagCollectionView setDataSource:self];
-        [bTagCollectionView setDelegate:self];
-        [bTagCollectionView registerClass:[BTagCollectionViewCell class] forCellWithReuseIdentifier:@"BTagCollectionViewCell"];
+- (UIView *)headView {
+    if (headView == nil) {
+        headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50)];
+        headView.backgroundColor = RANDOM_COLOR;
     }
-    return bTagCollectionView;
+    return headView;
 }
 
-- (UICollectionView *) menuCollectionView {
-    if (!menuCollectionView) {
-        
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-        layout.sectionInset = UIEdgeInsetsMake(5, 0, 0, 0);
-        layout.itemSize = CGSizeMake(self.view.frame.size.width/3, 82);
-        layout.minimumInteritemSpacing = 0;
-        layout.minimumLineSpacing = 0;
-        
-        
-        menuCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 82) collectionViewLayout:layout];
-        
-        menuCollectionView.backgroundColor = [UIColor clearColor];
-        menuCollectionView.alwaysBounceVertical = NO;
-        [menuCollectionView setDataSource:self];
-        [menuCollectionView setDelegate:self];
-        [menuCollectionView registerClass:[MenuCollectionViewCell class] forCellWithReuseIdentifier:@"MenuCollectionViewCell"];
-        menuCollectionView.pagingEnabled = YES;
-        [menuCollectionView setShowsHorizontalScrollIndicator:NO];
-        [menuCollectionView setShowsVerticalScrollIndicator:NO];
-        [menuCollectionView layoutIfNeeded];
-
+- (UIView *)advertiseMentView {
+    if (advertiseMentView == nil) {
+        advertiseMentView = [[UIView alloc] initWithFrame:CGRectMake(0, 50, SCREEN_WIDTH, 95)];
+        advertiseMentView.backgroundColor = RANDOM_COLOR;
     }
-    return menuCollectionView;
+    return advertiseMentView;
 }
 
-
-//- (UITableView *) mainTableView {
-//    if (!mainTableView) {
-//        mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, 82, self.view.frame.size.width - 10, self.view.frame.size.height-82-50)];
-//        mainTableView.backgroundColor  = [UIColor clearColor];
-//        mainTableView.dataSource = self;
-//        mainTableView.delegate = self;
-//        mainTableView.separatorColor = [UIColor clearColor];
-//    }
-//    return mainTableView;
-//}
-//
-//- (UITableView *) othersTableView {
-//    if (!othersTableView) {
-//        othersTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, 102, self.view.frame.size.width - 10, self.view.frame.size.height-102-50)];
-//        othersTableView.backgroundColor  = [UIColor clearColor];
-//        othersTableView.dataSource = self;
-//        othersTableView.delegate = self;
-//        othersTableView.separatorColor = [UIColor clearColor];
-//    }
-//    return othersTableView;
-//}
-
-
-//- (FXBlurView *) blurView {
-//    if (!blurView) {
-//        blurView = [[FXBlurView alloc] initWithFrame:self.menuCollectionView.frame];
-//        blurView.blurRadius = 6;
-//        blurView.tintColor = [UIColor colorWithRed:123/255.0f green:201/255.0f blue:210/255.0f alpha:1];
-//        //blurView.dynamic = YES;
-//        blurView.alpha = 0.4;
-//    }
-//    return blurView;
-//}
-
-- (UIImageView *) bgView {
-    if (!bgView) {
-        bgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg@2x.jpg"]];
+- (UIButton *) newsButton {
+    if (!newsButton) {
+        newsButton = [[UIButton alloc] initWithFrame:CGRectMake(5, 145, menuSize.width, menuSize.height)];
+        [newsButton setImage:[UIImage imageNamed:@"medee"] forState:UIControlStateNormal];
+        [newsButton addTarget:self action:@selector(newsButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        [newsButton.titleLabel setFont:FONT_SMALLEST];
+        [newsButton setBackgroundImage:[self imageWithColor:[BLACK_COLOR colorWithAlphaComponent:0.3f]] forState:UIControlStateNormal];
+        [newsButton setBackgroundImage:[self imageWithColor:[BLACK_COLOR colorWithAlphaComponent:0.8]] forState:UIControlStateHighlighted];
+        newsButton.titleEdgeInsets = UIEdgeInsetsMake(menuSize.height - 25, - 56, 0 , 0);
+        newsButton.imageEdgeInsets = UIEdgeInsetsMake(-10, 18, 5, 5);
+        newsButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [newsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        newsButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+        newsButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+        [newsButton setTitle:@"Мэдээ" forState:UIControlStateNormal];
     }
-    return bgView;
+    return newsButton;
 }
 
-
-- (UITextField *) searchFieldl {
-    if (!searchFieldl) {
-        searchFieldl = [[UITextField alloc] initWithFrame:CGRectMake(5, 22, 257, 36)];
-        searchFieldl.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"search_bg"]];
+- (UIButton *) trafficButton {
+    if (!trafficButton) {
+        trafficButton = [[UIButton alloc] initWithFrame:CGRectMake(10 + menuSize.width, 145, menuSize.width, menuSize.height)];
+        [trafficButton setImage:[UIImage imageNamed:@"traffic"] forState:UIControlStateNormal];
+        [trafficButton addTarget:self action:@selector(trafficButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        [trafficButton.titleLabel setFont:FONT_SMALLEST];
+        [trafficButton setBackgroundImage:[self imageWithColor:[BLACK_COLOR colorWithAlphaComponent:0.3f]] forState:UIControlStateNormal];
+        [trafficButton setBackgroundImage:[self imageWithColor:[BLACK_COLOR colorWithAlphaComponent:0.8]] forState:UIControlStateHighlighted];
+        trafficButton.titleEdgeInsets = UIEdgeInsetsMake(menuSize.height - 25, - 65, 0 , 0);
+        trafficButton.imageEdgeInsets = UIEdgeInsetsMake(-10, 18, 5, 5);
+        trafficButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [trafficButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        trafficButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+        trafficButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+        [trafficButton setTitle:@"Замын түгжрэл" forState:UIControlStateNormal];
     }
-    return searchFieldl;
+    return trafficButton;
 }
 
 - (UIButton *) searchButton {
     if (!searchButton) {
-        searchButton = [[UIButton alloc] initWithFrame:CGRectMake(5, 20, 40, 40)];
+        searchButton = [[UIButton alloc] initWithFrame:CGRectMake(15 + menuSize.width*2, 145, menuSize.width, menuSize.height)];
         [searchButton setImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
         [searchButton addTarget:self action:@selector(searchButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        [searchButton setTitle:@"Хайлт" forState:UIControlStateNormal];
+        
+        [searchButton.titleLabel setFont:FONT_NORMAL_SMALL];
+        [searchButton setBackgroundImage:[self imageWithColor:[BLACK_COLOR colorWithAlphaComponent:0.3f]] forState:UIControlStateNormal];
+        [searchButton setBackgroundImage:[self imageWithColor:[BLACK_COLOR colorWithAlphaComponent:0.8]] forState:UIControlStateHighlighted];
+        searchButton.titleEdgeInsets = UIEdgeInsetsMake(menuSize.height - 25, - 56, 0 , 0);
+        searchButton.imageEdgeInsets = UIEdgeInsetsMake(-10, 18, 5, 5);
+        searchButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [searchButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        searchButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+        searchButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     }
     return searchButton;
 }
 
-- (UIButton *) loginButton {
-    if (!loginButton) {
-        loginButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-5-40, 20, 40, 40)];
-        [loginButton setImage:[UIImage imageNamed:@"exit"] forState:UIControlStateNormal];
-        [loginButton addTarget:self action:@selector(searchButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+- (UIButton *) weatherButton {
+    if (!weatherButton) {
+        weatherButton = [[UIButton alloc] initWithFrame:CGRectMake(5, 145 + menuSize.height + 5, menuSize.width*2 + 5, menuSize.height)];
+        [weatherButton setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        [weatherButton addTarget:self action:@selector(weatherButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        
+        [weatherButton.titleLabel setFont:FONT_NORMAL_SMALL];
+        [weatherButton setBackgroundImage:[self imageWithColor:[BLACK_COLOR colorWithAlphaComponent:0.3f]] forState:UIControlStateNormal];
+        [weatherButton setBackgroundImage:[self imageWithColor:[BLACK_COLOR colorWithAlphaComponent:0.8]] forState:UIControlStateHighlighted];
+        weatherButton.titleEdgeInsets = UIEdgeInsetsMake(menuSize.height - 25, - 56, 0 , 0);
+        weatherButton.imageEdgeInsets = UIEdgeInsetsMake(-10, 18, 5, 5);
+        weatherButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [weatherButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        weatherButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+        weatherButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     }
-    return loginButton;
+    return weatherButton;
 }
+
+- (UIButton *)referenceButton {
+    if (!referenceButton) {
+        referenceButton = [[UIButton alloc] initWithFrame:CGRectMake(15 + menuSize.width*2, 145 + menuSize.height + 5, menuSize.width, menuSize.height)];
+        [referenceButton setImage:[UIImage imageNamed:@"lavlah"] forState:UIControlStateNormal];
+        [referenceButton addTarget:self action:@selector(referenceButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        [referenceButton setTitle:@"Лавлах" forState:UIControlStateNormal];
+        
+        [referenceButton.titleLabel setFont:FONT_NORMAL_SMALL];
+        [referenceButton setBackgroundImage:[self imageWithColor:[BLACK_COLOR colorWithAlphaComponent:0.3f]] forState:UIControlStateNormal];
+        [referenceButton setBackgroundImage:[self imageWithColor:[BLACK_COLOR colorWithAlphaComponent:0.8]] forState:UIControlStateHighlighted];
+        referenceButton.titleEdgeInsets = UIEdgeInsetsMake(menuSize.height - 25, - 56, 0 , 0);
+        referenceButton.imageEdgeInsets = UIEdgeInsetsMake(-10, 18, 5, 5);
+        referenceButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [referenceButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        referenceButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+        referenceButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    }
+    return referenceButton;
+}
+
+- (UIButton *) easternAstrologyButton {
+    if (!easternAstrologyButton) {
+        easternAstrologyButton = [[UIButton alloc] initWithFrame:CGRectMake(5, 145 + (menuSize.height+5)*2, menuSize.width, menuSize.height)];
+        [easternAstrologyButton setImage:[UIImage imageNamed:@"zodiac"] forState:UIControlStateNormal];
+        [easternAstrologyButton addTarget:self action:@selector(easternAstrologyButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        [easternAstrologyButton setTitle:@"Өрнийн зурхай" forState:UIControlStateNormal];
+        
+        [easternAstrologyButton.titleLabel setFont:FONT_NORMAL_SMALL];
+        [easternAstrologyButton setBackgroundImage:[self imageWithColor:[BLACK_COLOR colorWithAlphaComponent:0.3f]] forState:UIControlStateNormal];
+        [easternAstrologyButton setBackgroundImage:[self imageWithColor:[BLACK_COLOR colorWithAlphaComponent:0.8]] forState:UIControlStateHighlighted];
+        easternAstrologyButton.titleEdgeInsets = UIEdgeInsetsMake(menuSize.height - 25, - 56, 0 , 0);
+        easternAstrologyButton.imageEdgeInsets = UIEdgeInsetsMake(-10, 18, 5, 5);
+        easternAstrologyButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [easternAstrologyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        easternAstrologyButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+        easternAstrologyButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    }
+    return easternAstrologyButton;
+}
+
+- (UIButton *) westernAstrologyButton {
+    if (!westernAstrologyButton) {
+        westernAstrologyButton = [[UIButton alloc] initWithFrame:CGRectMake(10 + menuSize.width, 145 + menuSize.height*2 + 10, menuSize.width, menuSize.height)];
+        [westernAstrologyButton setImage:[UIImage imageNamed:@"yinyang"] forState:UIControlStateNormal];
+        [westernAstrologyButton addTarget:self action:@selector(westernAstrologyButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        [westernAstrologyButton setTitle:@"Дорнын зурхай" forState:UIControlStateNormal];
+        
+        [westernAstrologyButton.titleLabel setFont:FONT_NORMAL_SMALL];
+        [westernAstrologyButton setBackgroundImage:[self imageWithColor:[BLACK_COLOR colorWithAlphaComponent:0.3f]] forState:UIControlStateNormal];
+        [westernAstrologyButton setBackgroundImage:[self imageWithColor:[BLACK_COLOR colorWithAlphaComponent:0.8]] forState:UIControlStateHighlighted];
+        westernAstrologyButton.titleEdgeInsets = UIEdgeInsetsMake(menuSize.height - 25, - 56, 0 , 0);
+        westernAstrologyButton.imageEdgeInsets = UIEdgeInsetsMake(-10, 18, 5, 5);
+        westernAstrologyButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [westernAstrologyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        westernAstrologyButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+        westernAstrologyButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    }
+    return westernAstrologyButton;
+}
+
+- (UIButton *) classicButton {
+    if (!classicButton) {
+        classicButton = [[UIButton alloc] initWithFrame:CGRectMake(15 + menuSize.width*2, 145 + menuSize.height*2 + 10, menuSize.width, menuSize.height)];
+        [classicButton setImage:[UIImage imageNamed:@"songodog"] forState:UIControlStateNormal];
+        [classicButton addTarget:self action:@selector(classicButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        [classicButton setTitle:@"Сонгодог" forState:UIControlStateNormal];
+        
+        [classicButton.titleLabel setFont:FONT_NORMAL_SMALL];
+        [classicButton setBackgroundImage:[self imageWithColor:[BLACK_COLOR colorWithAlphaComponent:0.3f]] forState:UIControlStateNormal];
+        [classicButton setBackgroundImage:[self imageWithColor:[BLACK_COLOR colorWithAlphaComponent:0.8]] forState:UIControlStateHighlighted];
+        classicButton.titleEdgeInsets = UIEdgeInsetsMake(menuSize.height - 25, - 56, 0 , 0);
+        classicButton.imageEdgeInsets = UIEdgeInsetsMake(-10, 18, 5, 5);
+        classicButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [classicButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        classicButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+        classicButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    }
+    return classicButton;
+}
+
+- (UIButton *) tvButton {
+    if (!tvButton) {
+        tvButton = [[UIButton alloc] initWithFrame:CGRectMake(5, 145 + menuSize.height*3 + 15,menuSize.width, menuSize.height)];
+        [tvButton setImage:[UIImage imageNamed:@"tv"] forState:UIControlStateNormal];
+        [tvButton addTarget:self action:@selector(tvButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        [tvButton setTitle:@"ТВ, Кино" forState:UIControlStateNormal];
+        
+        [tvButton.titleLabel setFont:FONT_NORMAL_SMALL];
+        [tvButton setBackgroundImage:[self imageWithColor:[BLACK_COLOR colorWithAlphaComponent:0.3f]] forState:UIControlStateNormal];
+        [tvButton setBackgroundImage:[self imageWithColor:[BLACK_COLOR colorWithAlphaComponent:0.8]] forState:UIControlStateHighlighted];
+        tvButton.titleEdgeInsets = UIEdgeInsetsMake(menuSize.height - 25, - 56, 0 , 0);
+        tvButton.imageEdgeInsets = UIEdgeInsetsMake(-10, 18, 5, 5);
+        tvButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [tvButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        tvButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+        tvButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    }
+    return tvButton;
+}
+
+- (UIButton *) getInformationButton {
+    if (!getInformationButton) {
+        getInformationButton = [[UIButton alloc] initWithFrame:CGRectMake(10 + menuSize.width, 145 + menuSize.height*3 + 15, menuSize.width, menuSize.height)];
+        [getInformationButton setImage:[UIImage imageNamed:@"info"] forState:UIControlStateNormal];
+        [getInformationButton addTarget:self action:@selector(getInformationButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        [getInformationButton setTitle:@"Мэдээлэл авах" forState:UIControlStateNormal];
+        
+        [getInformationButton.titleLabel setFont:FONT_NORMAL_SMALL];
+        [getInformationButton setBackgroundImage:[self imageWithColor:[BLACK_COLOR colorWithAlphaComponent:0.3f]] forState:UIControlStateNormal];
+        [getInformationButton setBackgroundImage:[self imageWithColor:[BLACK_COLOR colorWithAlphaComponent:0.8]] forState:UIControlStateHighlighted];
+        getInformationButton.titleEdgeInsets = UIEdgeInsetsMake(menuSize.height - 25, - 56, 0 , 0);
+        getInformationButton.imageEdgeInsets = UIEdgeInsetsMake(-10, 18, 5, 5);
+        getInformationButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [getInformationButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        getInformationButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+        getInformationButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    }
+    return getInformationButton;
+}
+
+- (UIButton *) jokeButton {
+    if (!jokeButton) {
+        jokeButton = [[UIButton alloc] initWithFrame:CGRectMake(15 + menuSize.width*2, 145 + menuSize.height*3 + 15, menuSize.width, menuSize.height)];
+        [jokeButton setImage:[UIImage imageNamed:@"info"] forState:UIControlStateNormal];
+        [jokeButton addTarget:self action:@selector(jokeButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        [jokeButton setTitle:@"Онигоо" forState:UIControlStateNormal];
+        
+        [jokeButton.titleLabel setFont:FONT_NORMAL_SMALL];
+        [jokeButton setBackgroundImage:[self imageWithColor:[BLACK_COLOR colorWithAlphaComponent:0.3f]] forState:UIControlStateNormal];
+        [jokeButton setBackgroundImage:[self imageWithColor:[BLACK_COLOR colorWithAlphaComponent:0.8]] forState:UIControlStateHighlighted];
+        jokeButton.titleEdgeInsets = UIEdgeInsetsMake(menuSize.height - 25, - 56, 0 , 0);
+        jokeButton.imageEdgeInsets = UIEdgeInsetsMake(-10, 18, 5, 5);
+        jokeButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [jokeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        jokeButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+        jokeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    }
+    return jokeButton;
+}
+
+
+
+
+- (UIButton *) busRouteButton {
+    if (!busRouteButton) {
+        busRouteButton = [[UIButton alloc] initWithFrame:CGRectMake(5, 145 + menuSize.height*4 + 20,  menuSize.width,  menuSize.height)];
+        [busRouteButton setImage:[UIImage imageNamed:@"busdirection"] forState:UIControlStateNormal];
+        [busRouteButton addTarget:self action:@selector(busRouteButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        
+        [busRouteButton.titleLabel setFont:FONT_NORMAL_SMALL];
+        [busRouteButton setBackgroundImage:[self imageWithColor:[BLACK_COLOR colorWithAlphaComponent:0.3f]] forState:UIControlStateNormal];
+        [busRouteButton setBackgroundImage:[self imageWithColor:[BLACK_COLOR colorWithAlphaComponent:0.8]] forState:UIControlStateHighlighted];
+        busRouteButton.titleEdgeInsets = UIEdgeInsetsMake(menuSize.height - 25, - 56, 0 , 0);
+        busRouteButton.imageEdgeInsets = UIEdgeInsetsMake(-10, 18, 5, 5);
+        busRouteButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [busRouteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        busRouteButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+        busRouteButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    }
+    return busRouteButton;
+}
+
+- (UIButton *) sonjooButton {
+    if (!sonjooButton) {
+        sonjooButton = [[UIButton alloc] initWithFrame:CGRectMake(10 + menuSize.width, 145 + menuSize.height*4 + 20, menuSize.width, menuSize.height)];
+        [sonjooButton setImage:[UIImage imageNamed:@"sonjoo"] forState:UIControlStateNormal];
+        [sonjooButton addTarget:self action:@selector(sonjooButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        
+        [sonjooButton.titleLabel setFont:FONT_NORMAL_SMALL];
+        [sonjooButton setBackgroundImage:[self imageWithColor:[BLACK_COLOR colorWithAlphaComponent:0.3f]] forState:UIControlStateNormal];
+        [sonjooButton setBackgroundImage:[self imageWithColor:[BLACK_COLOR colorWithAlphaComponent:0.8]] forState:UIControlStateHighlighted];
+        sonjooButton.titleEdgeInsets = UIEdgeInsetsMake(menuSize.height - 25, - 56, 0 , 0);
+        sonjooButton.imageEdgeInsets = UIEdgeInsetsMake(-10, 18, 5, 5);
+        sonjooButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [sonjooButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        sonjooButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+        sonjooButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    }
+    return sonjooButton;
+}
+
+
+- (UIImage *)imageWithColor:(UIColor *)color {
+    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
+//- (UIImageView *) bgView {
+//    if (!bgView) {
+//        bgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg@2x.jpg"]];
+//    }
+//    return bgView;
+//}
+
+
+//- (UITextField *) searchFieldl {
+//    if (!searchFieldl) {
+//        searchFieldl = [[UITextField alloc] initWithFrame:CGRectMake(5, 22, 257, 36)];
+//        searchFieldl.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"search_bg"]];
+//    }
+//    return searchFieldl;
+//}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
+
 
 @end

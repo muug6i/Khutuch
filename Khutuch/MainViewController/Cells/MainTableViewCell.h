@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <AMRatingControl/AMRatingControl.h>
 #import "MyButton.h"
 
 @interface MainTableViewCell : UITableViewCell
@@ -24,10 +23,5 @@
 @property (nonatomic, strong) UIButton      *moreButton;
 @property (nonatomic, strong) UIButton       *bestLabel;
 
-
-
-
-
-@property (nonatomic, strong) AMRatingControl   *cellRating;
 
 @end

@@ -19,7 +19,6 @@
 @synthesize bestLabel;
 @synthesize fooretView;
 @synthesize mainImageView;
-@synthesize cellRating;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -32,7 +31,6 @@
         [self.contentView addSubview:self.typeLabel];
         
         [self.contentView addSubview:self.bestAreaIcon];
-        [self.contentView addSubview:self.cellRating];
         
         [self.contentView addSubview:self.fooretView];
         [self.fooretView addSubview:self.saveButton];
@@ -81,18 +79,6 @@
         [bestAreaIcon setImage:[UIImage imageNamed:@"best"]];
     }
     return bestAreaIcon;
-}
-
-- (AMRatingControl *) cellRating {
-    if (!cellRating) {
-        cellRating = [[AMRatingControl alloc] initWithLocation:CGPointMake(self.mainImageView.frame.size.width - 70 , 8)
-                                                    emptyImage:nil
-                                                    solidImage:[UIImage imageNamed:@"favorite"]
-                                                  andMaxRating:5];
-        cellRating.rating = 5;
-        cellRating.starWidthAndHeight = 10;
-    }
-    return cellRating;
 }
 
 - (UIView *) fooretView {

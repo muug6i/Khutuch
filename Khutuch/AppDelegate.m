@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "MainViewController.h"
-#import "OrderedViewController.h"
+#import "SettingsViewController.h"
 #import "LoginViewController.h"
 
 @interface AppDelegate ()
@@ -24,49 +24,56 @@
     
     self.tabBarController = [[UITabBarController alloc] init];
     
-    MainViewController *VC1 = [[MainViewController alloc] init];
-    VC1.tabBarItem.image =[UIImage imageNamed:@"home"];
-    VC1.tabBarItem.selectedImage = [UIImage imageNamed:@"home_selection.png"];
-    UINavigationController *VC1Navigation = [[UINavigationController alloc]
-                                             initWithRootViewController:VC1];
+    SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
+    settingsViewController.tabBarItem.image =[UIImage imageNamed:@"tab_setting"];
+    settingsViewController.tabBarItem.title = @"Тохиргоо".uppercaseString;
+//    settingsViewController.tabBarItem.selectedImage = [UIImage imageNamed:@"tab_setting"];
+    UINavigationController *settingsNavigation = [[UINavigationController alloc]
+                                             initWithRootViewController:settingsViewController];
     
     
-    OrderedViewController *VC2 = [[OrderedViewController alloc] init];
-    VC2.tabBarItem.image = [UIImage imageNamed:@"tatsan"];
-    VC2.tabBarItem.selectedImage = [UIImage imageNamed:@"tatsan_selection"];
-    UINavigationController *VC2Navigation = [[UINavigationController alloc]
-                                             initWithRootViewController:VC2];
+    MainViewController *mainViewController = [[MainViewController alloc] init];
+    mainViewController.tabBarItem.image = [UIImage imageNamed:@"tab_home"];
+    mainViewController.tabBarItem.title = @"Эхлэл".uppercaseString;
+//    mainViewController.tabBarItem.selectedImage = [UIImage imageNamed:@"tab_home"];
+    UINavigationController *mainMenuNavigation = [[UINavigationController alloc]
+                                             initWithRootViewController:mainViewController];
     
-    UIViewController *VC3 = [[UIViewController alloc] init];
-    VC3.tabBarItem.image = [UIImage imageNamed:@"map_selection"];
-    VC3.tabBarItem.selectedImage = [UIImage imageNamed:@"map"];
+    UIViewController *organization = [[UIViewController alloc] init];
+    organization.tabBarItem.image = [UIImage imageNamed:@"tab_sale"];
+    organization.tabBarItem.title = @"Байгууллага".uppercaseString;
+//    organization.tabBarItem.selectedImage = [UIImage imageNamed:@"tab_sale"];
     
     UINavigationController* VC3Navigation = [[UINavigationController alloc]
-                                             initWithRootViewController:VC3];
+                                             initWithRootViewController:organization];
     
     UIViewController *VC4 = [[UIViewController alloc] init];
-    VC4.tabBarItem.image = [UIImage imageNamed:@"yes"];
-    VC4.tabBarItem.selectedImage = [UIImage imageNamed:@"yes_selection"];
+    VC4.tabBarItem.image = [UIImage imageNamed:@"tab_medeelel"];
+    VC4.tabBarItem.title = @"Мэдээлэл".uppercaseString;
+//    VC4.tabBarItem.selectedImage = [UIImage imageNamed:@"tab_medeelel"];
     
     UINavigationController* VC4Navigation = [[UINavigationController alloc]
                                              initWithRootViewController:VC4];
 
     
     LoginViewController *VC5 = [[LoginViewController alloc] init];
-    VC5.tabBarItem.image = [UIImage imageNamed:@"my"];
-    VC5.tabBarItem.selectedImage = [UIImage imageNamed:@"my_selection"];
+    VC5.tabBarItem.image = [UIImage imageNamed:@"tab_yos_zanshil"];
+    VC5.tabBarItem.title = @"Ёс заншил".uppercaseString;
+//    VC5.tabBarItem.selectedImage = [UIImage imageNamed:@"tab_yos_zanshil"];
     
     UINavigationController* VC5Navigation = [[UINavigationController alloc]
                                              initWithRootViewController:VC5];
 
-    VC1Navigation.navigationBarHidden = YES;
-    VC2Navigation.navigationBarHidden = YES;
+    settingsNavigation.navigationBarHidden = YES;
+    mainMenuNavigation.navigationBarHidden = YES;
     VC3Navigation.navigationBarHidden = YES;
     VC4Navigation.navigationBarHidden = YES;
     VC5Navigation.navigationBarHidden = YES;
     
-    NSArray* controllers = [NSArray arrayWithObjects:VC1Navigation, VC2Navigation, VC3Navigation,VC4Navigation,VC5Navigation, nil];
+    NSArray* controllers = [NSArray arrayWithObjects:settingsNavigation, mainMenuNavigation, VC3Navigation,VC4Navigation,VC5Navigation, nil];
     self.tabBarController.viewControllers = controllers;
+    
+    self.tabBarController.selectedIndex = 1;
 
     
     [[UITabBar appearance] setBarTintColor:[UIColor colorWithRed:56/255.0f green:56/255.0f blue:56/255.0f alpha:1]];

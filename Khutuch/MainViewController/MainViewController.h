@@ -7,22 +7,35 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MainAbstractViewController.h"
 #import <FXBlurView/FXBlurView.h>
 
-@interface MainViewController : UIViewController
+@interface MainViewController : MainAbstractViewController
 
-@property (nonatomic, strong) FXBlurView        *blurView;
-@property (nonatomic, strong) UIImageView       *bgView;
-@property (nonatomic, strong) UICollectionView  *menuCollectionView;
+@property (nonatomic, strong) UIScrollView *myScrollView;
 
-@property (nonatomic, strong) UITableView       *mainTableView;
-@property (nonatomic, strong) UITableView       *othersTableView;
+@property (nonatomic, strong) UIView          *headView;
+@property (nonatomic, strong) UIView          *advertiseMentView;
 
-@property (nonatomic, strong) UICollectionView  *bTagCollectionView;
-
-@property (nonatomic, strong) UITextField       *searchFieldl;
+@property (nonatomic, strong) UIButton          *newsButton;
+@property (nonatomic, strong) UIButton          *trafficButton;
 @property (nonatomic, strong) UIButton          *searchButton;
-@property (nonatomic, strong) UIButton          *loginButton;
+
+@property (nonatomic, strong) UIButton          *weatherButton;
+@property (nonatomic, strong) UIButton          *referenceButton;
+
+@property (nonatomic, strong) UIButton          *easternAstrologyButton;
+@property (nonatomic, strong) UIButton          *westernAstrologyButton;
+@property (nonatomic, strong) UIButton          *classicButton;
+
+@property (nonatomic, strong) UIButton          *tvButton;
+@property (nonatomic, strong) UIButton          *getInformationButton;
+@property (nonatomic, strong) UIButton          *jokeButton;
+
+@property (nonatomic, strong) UIButton          *radioButton;
+@property (nonatomic, strong) UIButton          *busRouteButton;
+@property (nonatomic, strong) UIButton          *sonjooButton;
+
 
 
 @end

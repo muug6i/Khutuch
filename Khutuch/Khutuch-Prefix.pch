@@ -20,6 +20,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import <MBProgressHUD.h>
+#import "Language/Language.h"
 #define MAS_SHORTHAND
 
 //Default
@@ -32,6 +33,7 @@
 #define kTaxAmount                              @"kTaxAmount"
 #define kGlobalHost                             @"kGlobalHost"
 #define kLocalHost                              @"kLocalHost"
+#define kLanguageENG                              @"kLanguageENG"
 
 #define RESTAURANT_NAME                         [USERDEF valueForKey:kMyStoreName]
 #define CURRENCY_SYMBOL                         [USERDEF valueForKey:kCurrencySymbol] == nil ? @"₮" : [USERDEF valueForKey:kCurrencySymbol]
@@ -43,58 +45,12 @@
 #define HOST                                    [USERDEF boolForKey:kIsGlobalHost] ? [NSString stringWithFormat:@"%@/iStore_dup",HOST_GLOBAL] : [NSString stringWithFormat:@"%@/iStore_v3",HOST_LOCAL]
 
 //====================================================================
-
-#define kIamManager                             @"kIamManager"
-//#define kMyRestaurants                          @"kMyRestaurants"
-
-//====================================================================
-#define kCashierPrinterType                     @"kCashierPrinterType"
-#define kCashierPrinterCopyCount                @"kCashierPrinterCopyCount"
-#define kCashierPrinterHost                     @"kCashierPrinterHost"
-
-#define CASHIER_PRINTER_TYPE                    [USERDEF integerForKey:kCashierPrinterType]
-#define CASHIER_PRINTER_COPY_COUNT              [USERDEF integerForKey:kCashierPrinterCopyCount]
-#define HOST_PRINTER_CASHIER                    [USERDEF valueForKey:kCashierPrinterHost]
-
-#define kIPCashierPrinter                   @"kIPCashierPrinter"
-#define IP_CASHIER_PRINTER                  [USERDEF valueForKey:kIPCashierPrinter] == nil  ? IP_CASHIER_PRINTER_DEFAULT : [USERDEF valueForKey:kIPCashierPrinter]
-
-//====================================================================
-
-#define kLocationCode                             @"kLocationCode"
-#define kProductCode                              @"kProductCode"
-
-//====================================================================
 #undef MY_BOUNDS
 #define MY_BOUNDS                           (!IS_IPAD ? [SEUtils getPortraitBounds] : [SEUtils getLandscapeBounds])
 
 #define CONNECTION_TIMEOUT                  220.0f
-#define REPORT_TEMP_FILE_NAME               @"report_temp.xlsx"
 
-#define kLastBackgroundDate                 @"kLastBackgroundDate"
-#define kLoggedIn                           @"kLoggedIn"
-#define kIsGlobalHost                       @"kIsGlobalHost"
-#define kLanguageENG                        @"kLanguageENG"
-#define kFloorBgImageName                   @"kFloorBgImageName"
-#define kLoginRememberMe                    @"kRememberMe"
-#define kIntroAgain                         @"kIntroAgain"
-#define kLoginUsername                      @"kUsername"
-#define kLoginPasswordKeychain              @"kLoginPasswordKeychain"
-#define kRunningApp                         @"kRunningApp"
-#define kAppCrashed                         @"kAppCrashed"
-#define kRefreshTables                      @"kRefreshTables"
 #define kDeviceToken                        @"kDeviceToken"
-
-#define kCashierPeripheral                      @"kCashierPeripheral"
-
-#define CASHIER_PERIPHERAL_IDENTIFIER                      [USERDEF stringForKey:kCashierPeripheral]
-
-//====================================================================
-
-#define APP_URL_SCHEME                          @"swipeAPICallReturnURL"
-#define kSwipeErelBankSuccesObserver            @"kSwipeErelBankSuccesObserver"
-#define kSwipeErelBankFailObserver              @"kSwipeErelBankFailObserver"
-
 
 //Constants
 #undef  NO_CONNECTION_ALERT
@@ -164,15 +120,13 @@
 #define FONT_NORMAL_SMALL_BOLD          [UIFont fontWithName:BOLDFONT size:14.0f]
 #define FONT_SMALL                      [UIFont fontWithName:NORMALFONT size:12.0f]
 
+#define FONT_SMALLEST                      [UIFont fontWithName:NORMALFONT size:10.0f]
 //====================================================================
 
 //VANTAGEPOS
 #define MAIN_COLOR                      UIColorFromRGB(0x4d8fb2)
 #define MAIN_BG_COLOR                   UIColorFromRGB(0xeaeaea)
 
-
-//------------------- Offline bill -------------------//
-#define kOFFLINE_ORDER_DICTIONARY       @"koffline_order_dictionary"
 
 
 
