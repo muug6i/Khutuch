@@ -7,26 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MBProgressHUD.h>
 
 @interface MainAbstractViewController : UIViewController<UIPopoverControllerDelegate>
-//Header
-@property (nonatomic, strong) UIView            *headerView;
-@property (nonatomic, strong) UILabel           *titleLabel;
-@property (nonatomic, strong) UIButton          *menuButton;
-@property (nonatomic, strong) UIButton          *backButton;
+
+
 //HUD
 @property (nonatomic, strong) MBProgressHUD     *HUD;
 @property (nonatomic, strong) UIRefreshControl  *refreshControl;
-@property (nonatomic, strong) UIImageView  *backgroundImageView;
-
-@property (nonatomic, strong) UIPopoverController *popoverController;
 
 - (void)configureView;
+- (void)showLoadingHUD;
 
 //HUD
 - (void)handleRefresh:(UIRefreshControl *)refresh;
-- (void)showLoadingHUD;
-//Back
-- (void)backButtonClicked;
+
+- (BOOL)isModal;
 
 @end

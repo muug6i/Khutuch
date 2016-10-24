@@ -1,5 +1,5 @@
 //
-//  OrderedViewController.h
+//  OrganizationsViewController.h
 //  Khutuch
 //
 //  Created by Kaizen-Mongolia on 1/16/16.
@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <FXBlurView/FXBlurView.h>
-#import "SortButton.h"
+#import "OrganizationCollectionCell.h"
+#import "MainViewWithHeaderViewController.h"
 
-@interface OrganizationsViewController : UIViewController
+@interface OrganizationsViewController : MainViewWithHeaderViewController 
 
-@property (nonatomic, strong) UICollectionView  *bTagCollectionView;
+@property (nonatomic, strong) UICollectionView  *myCollectionView;
+@property (nonatomic, strong) NSArray  *organizationsArray;
 
 @end

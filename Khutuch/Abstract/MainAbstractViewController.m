@@ -8,20 +8,15 @@
 
 #import "MainAbstractViewController.h"
 #import "MyAlertView.h"
+#import <SEDefaults/SEDefaults.h>
 
 @interface MainAbstractViewController ()
 
 @end
 
 @implementation MainAbstractViewController
-@synthesize popoverController;
-@synthesize headerView;
-@synthesize titleLabel;
-@synthesize menuButton;
-@synthesize backButton;
 @synthesize HUD;
 @synthesize refreshControl;
-@synthesize backgroundImageView;
 
 - (void)showLoadingHUD {
     if (HUD == nil) {
@@ -45,42 +40,35 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    
+    // Do any additional setup after loading the view.
     [self configureView];
 }
 
 - (void)configureView {
-    //UIRefreshControl
-    {
-        self.refreshControl = [[UIRefreshControl alloc] init];
-        [refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
-    }
-    
     self.view.backgroundColor = [UIColor whiteColor];
-    {
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"manager_bg.jpg"]];
-        imageView.frame = CGRectMake(0, 20, SCREEN_WIDTH, SCREEN_HEIGHT - 20);
-        [self.view addSubview:imageView];
-    }
-    [self.view addSubview:self.headerView];
 }
 
-#pragma mark - UIPopoverControllerDelegate
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
 
-- (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController
+#pragma mark -
+#pragma mark Rotation
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return UIInterfaceOrientationIsPortrait(interfaceOrientation);
+}
+
+-(BOOL)shouldAutorotate
 {
     return YES;
 }
 
-- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+-(NSUInteger)supportedInterfaceOrientations
 {
-    self.popoverController.delegate = nil;
-    self.popoverController = nil;
+    return UIInterfaceOrientationMaskPortrait;
 }
-
-#pragma mark -
-#pragma mark Connection
 
 #pragma mark -
 #pragma mark UIActions
@@ -89,70 +77,12 @@
     //...
 }
 
-- (void)backButtonClicked {
-    if (![self.navigationController popViewControllerAnimated:YES]) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
-}
-
 #pragma mark -
 #pragma mark User Methods
 - (BOOL)isModal {
     return self.presentingViewController.presentedViewController == self
     || self.navigationController.presentingViewController.presentedViewController == self.navigationController
     || [self.tabBarController.presentingViewController isKindOfClass:[UITabBarController class]];
-}
-
-#pragma mark -
-#pragma mark Getters
-- (UIView *)headerView {
-    if (headerView == nil) {
-        headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
-        headerView.backgroundColor = CLEAR_COLOR;
-        headerView.clipsToBounds = YES;
-        {
-            UIView *view = [[UIView alloc] initWithFrame:headerView.bounds];
-            view.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5f];
-            [headerView addSubview:view];
-        }
-        
-        if (!IS_IPAD || ![self isModal])
-        {
-            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 20)];
-            view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5f];
-            [headerView addSubview:view];
-        }
-        
-        //SubViews
-        {
-            //Back button
-            if (self.navigationController.viewControllers.count > 1 || [self isModal])
-                [headerView addSubview:self.backButton];
-            
-            [headerView addSubview:self.titleLabel];
-        }
-    }
-    return headerView;
-}
-- (UILabel *)titleLabel {
-    if (titleLabel == nil) {
-        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-500)/2, 20, 500, 44)];
-        titleLabel.backgroundColor = CLEAR_COLOR;
-        titleLabel.textColor = BLACK_COLOR;
-        titleLabel.font = FONT_LARGE;
-        if (!IS_IPAD)
-            titleLabel.font = FONT_NORMAL_BOLD;
-        titleLabel.textAlignment = NSTextAlignmentCenter;
-    }
-    return titleLabel;
-}
-- (UIButton *)backButton {
-    if (backButton == nil) {
-        backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        backButton.frame = CGRectMake(39, 25, 34, 34);
-        [backButton addTarget:self action:@selector(backButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return backButton;
 }
 
 @end

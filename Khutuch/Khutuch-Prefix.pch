@@ -35,14 +35,11 @@
 #define kLocalHost                              @"kLocalHost"
 #define kLanguageENG                              @"kLanguageENG"
 
-#define RESTAURANT_NAME                         [USERDEF valueForKey:kMyStoreName]
-#define CURRENCY_SYMBOL                         [USERDEF valueForKey:kCurrencySymbol] == nil ? @"₮" : [USERDEF valueForKey:kCurrencySymbol]
-#define HOST_GLOBAL                             [USERDEF valueForKey:kGlobalHost]
-#define HOST_LOCAL                              [USERDEF valueForKey:kLocalHost]
+
 
 //====================================================================
 
-#define HOST                                    [USERDEF boolForKey:kIsGlobalHost] ? [NSString stringWithFormat:@"%@/iStore_dup",HOST_GLOBAL] : [NSString stringWithFormat:@"%@/iStore_v3",HOST_LOCAL]
+
 
 //====================================================================
 #undef MY_BOUNDS
@@ -61,7 +58,6 @@
 #define DATABASE_MANAGER                [Database getDatabase]
 #define PARSER                          [Parser getParser]
 #define LOGIN_USER                      [UserEmployee getLoginUser]
-#define PRINTER_UTILS                   [PrinterUtils sharedPrinterUtils]
 
 #define kSelectedOrgID                  @"kSelectedOrgID"
 #define kSelectedEmployeeID             @"kSelectedEmployeeID"
@@ -127,6 +123,21 @@
 #define MAIN_COLOR                      UIColorFromRGB(0x4d8fb2)
 #define MAIN_BG_COLOR                   UIColorFromRGB(0xeaeaea)
 
+
+#define DATE_FORMAT_FULL                    @"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+#define DATE_FORMAT_FULL_CONVERTED          @"yyyy-MM-dd HH:mm"
+
+#define LOGIN_USER                      [LoginUser getLoginUser]
+#define kLoggedIn                       @"kLoggedIn"
+
+#define kLoginEmail                     @"kLoginUsername"
+#define kLoginPasswordKeychain          @"kLoginPasswordKeychain"
+#define kDeviceToken                    @"kDeviceToken"
+#define kDeviceTokenSentToServer        @"kDeviceTokenSentToServer"
+#define kLoginCookies                   @"kLoginCookies"
+
+#define kCategoryLastChangeDate         @"kCategoryLastChangeDate"
+#define kHeaderBannerArray              @"kHeaderBannerArray"
 
 
 

@@ -7,34 +7,29 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MainAbstractViewController.h"
+#import "MainViewWithHeaderViewController.h"
 #import <FXBlurView/FXBlurView.h>
+#import "DDPageControl.h"
+#import <AutoScrollLabel/CBAutoScrollLabel.h>
+#import "MainMenuCollectionCell.h"
+#import "BusRouteTableViewController.h"
+#import "WestZodiacViewController.h"
+#import "EastZodiacViewController.h"
+#import "LavlahViewController.h"
 
-@interface MainViewController : MainAbstractViewController
+@interface MainViewController : MainViewWithHeaderViewController
 
-@property (nonatomic, strong) UIScrollView *myScrollView;
+@property (nonatomic, strong) CBAutoScrollLabel *autoScrollLabel;
+@property (nonatomic, strong) UICollectionView *myCollectionView;
+@property (nonatomic, strong) NSArray *mainArray;
 
-@property (nonatomic, strong) UIView          *headView;
-@property (nonatomic, strong) UIView          *advertiseMentView;
 
-@property (nonatomic, strong) UIButton          *newsButton;
-@property (nonatomic, strong) UIButton          *trafficButton;
-@property (nonatomic, strong) UIButton          *searchButton;
+@property (nonatomic, strong) UIScrollView      *slideScrollView;
+@property (strong, nonatomic) DDPageControl      *pageControl;
+@property (nonatomic, strong) UIImageView          *backImage;
+@property (nonatomic, strong) UIImageView          *advertiseImageView;
 
-@property (nonatomic, strong) UIButton          *weatherButton;
-@property (nonatomic, strong) UIButton          *referenceButton;
 
-@property (nonatomic, strong) UIButton          *easternAstrologyButton;
-@property (nonatomic, strong) UIButton          *westernAstrologyButton;
-@property (nonatomic, strong) UIButton          *classicButton;
-
-@property (nonatomic, strong) UIButton          *tvButton;
-@property (nonatomic, strong) UIButton          *getInformationButton;
-@property (nonatomic, strong) UIButton          *jokeButton;
-
-@property (nonatomic, strong) UIButton          *radioButton;
-@property (nonatomic, strong) UIButton          *busRouteButton;
-@property (nonatomic, strong) UIButton          *sonjooButton;
 
 
 
